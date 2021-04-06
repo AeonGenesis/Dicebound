@@ -18,14 +18,14 @@ client.on('ready', () => {
 
 
 client.on('message', (message) => {
-    if (message.content === "!help") {
-        message.channel.send("I can help with that");
+    if (message.content === "#help") {
+        message.channel.send("This bot only uses d6 dice, so no need to type out d6 in your rolls.\nThis is how the syntax of your roll should look.\n#roll `[dice]` `[difficulty]:[complexity]` `[focus]`\nFocus is an optional value. An example roll is this: `#roll 4 4:1 f1`");
     }
 })
 
 client.on('message', (message) => {
     const match = message.content.match(/#roll (\d+) (\d+):(\d+)( f(\d+))?/);
-    if(!match) { return; }
+    if(!match) { return "Not a valid roll. Please retype `#roll [dice] [difficulty]:[complexity] [focus]"; }
     let [_, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
     dice = parseInt(dice, 10);
     targetNumber = parseInt(targetNumber, 10);
