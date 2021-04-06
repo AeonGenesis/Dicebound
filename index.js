@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
-const config = require('./config/config');
+// const config = require('./config/config');
 const client = new Discord.Client();
+
+require("dotenv").config();
 
 const { roller } = require("./src/roller");
 
@@ -8,16 +10,21 @@ client.once('ready', () => {
     console.log('Ready!');
 });
 
-client.login(config.DISCORD_BOT.TOKEN);
+client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
 })
 
-const prefix = config.DISCORD_BOT.PREFIX;
 
 client.on('message', (message) => {
-    const match = message.content.match(/!roll (\d+) (\d+):(\d+)( f(\d+))?/);
+    if (message.content === "!help") {
+        message.channel.send("I can help with that");
+    }
+})
+
+client.on('message', (message) => {
+    const match = message.content.match(/#roll (\d+) (\d+):(\d+)( f(\d+))?/);
     if(!match) { return; }
     let [_, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
     dice = parseInt(dice, 10);
