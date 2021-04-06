@@ -14,9 +14,9 @@ client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
+    client.bot.setActivity("Listening for #help");
 })
 
-client.bot.setStatus("Listening for #roll");
 
 client.on('message', (message) => {
     if (message.content === "#help") {
