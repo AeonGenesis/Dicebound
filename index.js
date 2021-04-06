@@ -19,7 +19,7 @@ client.on('ready', () => {
 
 client.on('message', (message) => {
     if (message.content === "#help") {
-        message.channel.send("Dicebound only uses d6 dice, so no need to type d6 in your rolls.\n\nroll syntax is as follows: `#roll [dice] [difficulty]:[complexity] f[focus number]`");
+        message.channel.send("Dicebound only uses d6 dice, so no need to type d6 in your rolls.\n\nroll syntax is as follows:\n\n `#roll [dice] [difficulty]:[complexity] f[focus number]`");
     }
 })
 

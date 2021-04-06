@@ -1,5 +1,5 @@
 {
-  "name": "sigmar_bot",
+  "name": "dicebound",
   "version": "1.0.0",
   "description": "A discord bot for running Age of Sigmar Soulbound",
   "main": "index.js",
