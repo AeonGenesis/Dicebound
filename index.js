@@ -19,7 +19,7 @@ client.on('ready', () => {
 
 client.on('message', (message) => {
     if (message.content === "#help") {
-        message.channel.send("Dicebound only uses d6 dice, so no need to type d6 in your rolls.\nFocus is also an optional value. Focus is only shown to be used if it is necessary to be used to get the required successes.\n\nRoll syntax is as follows:\n\n `#roll [dice] [difficulty]:[complexity] f[focus number]`");
+        message.channel.send("Dicebound only uses d6 dice, so no need to type d6 in your rolls.\nFocus is also an optional value. Focus is only shown to be used if it is necessary to get the required amount of successes.\n\nRoll syntax is as follows:\n\n `#roll [dice] [difficulty]:[complexity] f[focus number]`");
     }
 })
 
