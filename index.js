@@ -19,13 +19,15 @@ client.on('ready', () => {
 
 client.on('message', (message) => {
     if (message.content === "#help") {
-        message.channel.send("This bot only uses d6 dice, so no need to type out d6 in your rolls.\nThis is how the syntax of your roll should look.\n\n#roll `[dice]` `[difficulty]:[complexity]` `[f][number]`\n\nFocus is an optional value.");
+        message.channel.send("This bot only uses d6 dice, so no need to type out d6 in your rolls.\nThis is how the syntax of your roll should look.\n#roll `[dice]` `[difficulty]:[complexity]` `[f][number]`\nFocus is an optional value.");
     }
 })
 
 client.on('message', (message) => {
     const match = message.content.match(/#roll (\d+) (\d+):(\d+)( f(\d+))?/);
-    if(!match) { message.channel.send("Not a valid roll. Please retype `#roll [dice] [difficulty]:[complexity] [focus]"); }
+    if(!match) { 
+        message.channel.send("Not a valid roll. Please retype `#roll [dice] [difficulty]:[complexity] [focus]"); 
+    }
     let [_, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
     dice = parseInt(dice, 10);
     targetNumber = parseInt(targetNumber, 10);
