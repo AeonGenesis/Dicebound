@@ -38,7 +38,7 @@ client.on('message', (message) => {
     const rollsOutput = roll.rolls.map(result => {
        return result.focused ? '**' + result.value + '**': result.value;
     });
-    if (roll.rolls.totalSuccesses >= roll.rolls.neededSuccesses){
+    if (roll.rolls.totalSuccesses >= targetNumber){
         message.channel.send(`Success! ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus`);
     } else {
         message.channel.send(`Failed! ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus`);
