@@ -39,8 +39,8 @@ client.on('message', (message) => {
     });
 
     if (roll.totalSuccesses >= neededSuccesses){
-        message.channel.send(` ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus\n **success!**`);
+        message.channel.send(` ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus. **Success!**`);
     } else {
-        message.channel.send(`${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus **failure!**`);
+        message.channel.send(`${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus. **Failure.**`);
     }
 });
