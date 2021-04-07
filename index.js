@@ -4,7 +4,7 @@ const client = new Discord.Client();
 
 require("dotenv").config();
 
-const { roller } = require("./src/roller");
+const { roller, totalSuccesses } = require("./src/roller");
 
 client.once('ready', () => {
     console.log('Ready!');
@@ -38,7 +38,7 @@ client.on('message', (message) => {
     const rollsOutput = roll.rolls.map(result => {
        return result.focused ? '**' + result.value + '**': result.value;
     });
-    if (roll.rolls.totalSuccesses >= targetNumber){
+    if (totalSuccesses >= targetNumber){
         message.channel.send(`Success! ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus`);
     } else {
         message.channel.send(`Failed! ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus`);
