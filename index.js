@@ -18,14 +18,16 @@ client.on('ready', () => {
 })
 
 
-client.on('message', (message) => {
+client.on('message', message => {
     if (message.content === "#help") {
         message.channel.send("Dicebound only uses d6 dice, so no need to type d6 in your rolls.\n\nFocus is also an optional value. Focus is only shown to be used if it is necessary to get the required amount of successes.\n\nRoll syntax is as follows:\n\n `#roll [dice] [difficulty]:[complexity] f[focus]`");
     }
-})
-client.on('message', (message) => {
+});
+
+client.on('message', message => {
     const match = message.content.match(/#roll (\d+) (\d+):(\d+)( f(\d+))?/);
     if(!match) { return; }
+
     let [_, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
     dice = parseInt(dice, 10);
     targetNumber = parseInt(targetNumber, 10);
@@ -35,12 +37,13 @@ client.on('message', (message) => {
     const roll = roller(dice, targetNumber, neededSuccesses, !!hasFocus ? focus: 0);
 
     const rollsOutput = roll.rolls.map(result => {
-       return result.focused ? '**' + result.value + '**': result.value;
+        return result.focused ? result.value + `*(+${result.focused})*`: result.value;
     });
 
-    if (roll.totalSuccesses >= neededSuccesses){
-        message.channel.send(` ${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus. **Success!**`);
-    } else {
-        message.channel.send(`${rollsOutput} with ${roll.totalSuccesses} successes using ${roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b)} focus. **Failure.**`);
-    }
+    const successResult = roll.totalSuccesses >= neededSuccesses ? 'Success!' : 'Failure.';
+    const focusUsed = roll.rolls.map(usedFocus => usedFocus.focused).reduce((a, b) => a + b);
+
+    message.channel.send(
+      ` ${rollsOutput} with ${roll.totalSuccesses} successes using ${focus} focus. **${successResult}**`
+    );
 });
