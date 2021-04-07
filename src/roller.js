@@ -33,4 +33,4 @@ function roller (dice, targetNumber, neededSuccesses, focus) {
     return ({ totalSuccesses, rolls, focus, success: totalSuccesses >= neededSuccesses})
     
 }
-module.exports = { roller, totalSuccesses };
+module.exports = { roller };
