@@ -14,7 +14,7 @@ client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready', () => {
     console.log(`${client.user.tag} has logged in.`);
-    client.user.setActivity("#roll", { type: "LISTENING" });
+    client.user.setActivity("#help", { type: "LISTENING" });
 })
 
 
