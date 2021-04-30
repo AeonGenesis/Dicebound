@@ -2,6 +2,7 @@
 
 # Quick Install
 Follow the link below to add the bot to your discord server:
+https://discord.com/api/oauth2/authorize?client_id=804581627149549609&permissions=0&scope=bot
 
 # Support
 Found a bug? Have a feature request? Create and issue on GitHub. Thanks! 
