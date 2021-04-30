@@ -1,6 +1,7 @@
-const d6 = () => {
-    return Math.floor(Math.random() * 6 + 1);
-}
+// const d6 = () => {
+//     return Math.floor(Math.random() * 6 + 1);
+// }
+ const { d6 } = require("./dice")
 
 function roller (dice, targetNumber, neededSuccesses, focus) {
     if (dice < 1) {
@@ -13,7 +14,7 @@ function roller (dice, targetNumber, neededSuccesses, focus) {
         if (success) {totalSuccesses++}
         return ({value: roll, success, focused: 0})
     })
-
+    
     if (focus > 0) {
         for (let i = rolls.length - 1; i >= 0; i--) {
             const roll = rolls[i]
@@ -30,8 +31,7 @@ function roller (dice, targetNumber, neededSuccesses, focus) {
             totalSuccesses++
         } 
     }
-
     return ({ totalSuccesses, rolls, focus, success: totalSuccesses >= neededSuccesses})
+    
 }
-
 module.exports = { roller };
