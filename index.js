@@ -21,7 +21,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if (message.content === "#help") {
-        message.channel.send("Dicebound only uses d6 dice, so no need to type d6 in your rolls.\n\nFocus is also an optional value. Focus is only shown to be used if it is necessary to get the required amount of successes.\n\nRoll syntax is as follows:\n\n `#roll [dice] [difficulty]:[complexity] f[focus]`\n\n**NEW FEATURE**\nType `#[name of race]` to get random characteristics for that race.\n Commands for each race are as follows-\n`#human`\n`#aelf`\n`#duardin`\n`#sylvaneth`\n`#sylvaneth-kurnoth`\n\nExample:\n`#human`\n\`\`\`Age: 125\nEye Type: Warm\nEye Color: Ruby\nHeight: 6' 1\"\nAccent: Rough whisper\`\`\`\n Might have misspellings or errors during testing.");
+        message.channel.send("**Age of Sigmar: Soulbound Discord Dicebot**\nDicebound only uses d6 dice, so no need to type d6 in your rolls.\n\nFocus is also an optional value. Focus is only shown to be used if it is necessary to get the required amount of successes.\n\nRoll syntax is as follows:\n\n `#roll [dice] [difficulty]:[complexity] f[focus]`\n\n**Random Race Characteristics Generation**\nType `#[name of race]` to get random characteristics for that race.\n Commands for each race are as follows-\n`#human`\n`#aelf`\n`#duardin`\n`#sylvaneth`\n`#sylvaneth-kurnoth`\n\nExample:\n`#human`\n\`\`\`Age: 125\nEye Type: Warm\nEye Color: Ruby\nHeight: 6' 1\"\nAccent: Rough whisper\`\`\`\n Might have misspellings or errors during testing.");
     }
 });
 
