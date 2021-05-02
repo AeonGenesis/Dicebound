@@ -1,5 +1,5 @@
 const d6 = () => {
-    return Math.floor(Math.random() * 6 + 1);
-}
+  return Math.floor(Math.random() * 6 + 1);
+};
 
-module.exports = { d6 }
+module.exports = { d6 };
