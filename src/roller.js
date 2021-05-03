@@ -42,6 +42,6 @@ function roller(dice, targetNumber, neededSuccesses, focus) {
     rolls,
     focus,
     success: totalSuccesses >= neededSuccesses,
-
+  };
 }
 module.exports = { roller };
