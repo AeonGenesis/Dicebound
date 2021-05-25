@@ -32,66 +32,31 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  if (message.content === '#human') {
-    const human = new HumanFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${human.age}\nEye Type: ${human.eyeType}\nEye Color: ${human.eyeColor}\nHeight: ${human.height}\n${human.distinguishingFeature}\`\`\``,
-    );
+  const commands = {
+    '#human': HumanFeatures,
+    '#aelf': AelfFeatures,
+    '#duardin': DuardinFeatures,
+    '#sylvaneth': SylvanethFeatures,
+  };
+
+  const Character = commands[message.content];
+  if (!Character) {
+    return;
   }
+  const character = new Character();
+
+  message.channel.send(
+    `\`\`\`Age: ${character.age}\nEye Type: ${character.eyeType}\nEye Color: ${character.eyeColor}\nHeight: ${character.height}\n${character.distinguishingFeature}\`\`\``,
+  );
 });
 
 client.on('message', message => {
-  if (message.content === '#stormcast') {
-    const stormcast = new StormcastFeatures();
-    message.channel.send(
-      `\`\`\`Age: Unknowable\nEye Type: ${stormcast.eyeType}\nEye Color: ${stormcast.eyeColor}\nHeight: ${stormcast.height}\n${stormcast.distinguishingFeature}\`\`\``,
-    );
-  }
-});
-
-client.on('message', message => {
-  if (message.content === '#aelf') {
-    const aelf = new AelfFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${aelf.age}\nEye Type: ${aelf.eyeType}\nEye Color: ${aelf.eyeColor}\nHeight: ${aelf.height}\n${aelf.distinguishingFeature}\`\`\``,
-    );
-  }
-});
-
-client.on('message', message => {
-  if (message.content === '#duardin') {
-    const duardin = new DuardinFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${duardin.age}\nEye Type: ${duardin.eyeType}\nEye Color: ${duardin.eyeColor}\nHeight: ${duardin.height}\n${duardin.distinguishingFeature}\`\`\``,
-    );
-  }
-});
-
-client.on('message', message => {
-  if (message.content === '#sylvaneth-kurnoth') {
-    const kurnoth = new SylvanethFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${kurnoth.age}\nEye Type: ${kurnoth.eyeType}\nEye Color: ${kurnoth.eyeColor}\nHeight: ${kurnoth.heightKurnoth}\n${kurnoth.distinguishingFeature}\`\`\``,
-    );
-  }
-});
-
-client.on('message', message => {
-  if (message.content === '#sylvaneth') {
-    const sylvaneth = new SylvanethFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${sylvaneth.age}\nEye Type: ${sylvaneth.eyeType}\nEye Color: ${sylvaneth.eyeColor}\nHeight: ${sylvaneth.height}\n${sylvaneth.distinguishingFeature}\`\`\``,
-    );
-  }
-});
-
-client.on('message', message => {
-  const match = message.content.match(/#roll (\d+) (\d+):(\d+)( f(\d+))?/);
+  const match = message.content.match(/#roll|#r (\d+) (\d+):(\d+)( f(\d+))?/);
   if (!match) {
     return;
   }
 
-  let [_, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
+  let [, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
   dice = parseInt(dice, 10);
   targetNumber = parseInt(targetNumber, 10);
   neededSuccesses = parseInt(neededSuccesses, 10);
@@ -116,7 +81,7 @@ client.on('message', message => {
     .map(usedFocus => usedFocus.focused)
     .reduce((a, b) => a + b);
 
-  message.channel.send(
+  message.reply(
     `\`\`\`md
 # ${successResult}
 [${rollsOutput}]: Successes: ${roll.totalSuccesses} | Focus Used: ${focusUsed}

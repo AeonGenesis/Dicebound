@@ -1,6 +1,6 @@
-const { d6 } = require("./dice");
+const { d6 } = require('./dice');
 
-function roller(dice, targetNumber, neededSuccesses, focus) {
+function roller(dice, targetNumber, neededSuccesses, focus = 0) {
   if (dice < 1) {
     return;
   }
@@ -9,7 +9,7 @@ function roller(dice, targetNumber, neededSuccesses, focus) {
   let rolls = [...Array(dice)]
     .map(() => d6())
     .sort()
-    .map((roll) => {
+    .map(roll => {
       const success = roll >= targetNumber;
       if (success) {
         totalSuccesses++;
