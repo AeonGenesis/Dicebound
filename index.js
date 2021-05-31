@@ -3,6 +3,7 @@ const client = new Discord.Client();
 
 require('dotenv').config();
 
+const { d6 } = require('./src/dice');
 const { roller } = require('./src/roller');
 const {
   HumanFeatures,
@@ -45,13 +46,13 @@ client.on('message', message => {
   }
   const character = new Character();
 
-  message.channel.send(
+  message.reply(
     `\`\`\`Age: ${character.age}\nEye Type: ${character.eyeType}\nEye Color: ${character.eyeColor}\nHeight: ${character.height}\n${character.distinguishingFeature}\`\`\``,
   );
 });
 
 client.on('message', message => {
-  const match = message.content.match(/#roll|#r (\d+) (\d+):(\d+)( f(\d+))?/);
+  const match = message.content.match(/#roll (\d+) (\d+):(\d+)( f(\d+))?/);
   if (!match) {
     return;
   }

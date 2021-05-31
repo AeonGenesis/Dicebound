@@ -5,25 +5,18 @@ const {
   DuardinFeatures,
   SylvanethFeatures,
 } = require('./character_features');
-const { randomInt } = require('./util');
-
-jest.mock('./character_features');
-jest.mock('./util');
-jest.mock('./dice');
 
 describe('Character Features', () => {
-  beforeEach(() => {
-    HumanFeatures.mockClear();
-    StormcastFeatures.mockClear();
-    AelfFeatures.mockClear();
-    DuardinFeatures.mockClear();
-    SylvanethFeatures.mockClear();
+  describe('Human', () => {
+    it('should have valid values for a new human object', async () => {
+      const human = new HumanFeatures();
 
-    randomInt.mockClear();
-  });
-
-  it('Should create a new instance of the HumanFeatures class', async () => {
-    const human = new HumanFeatures();
-    expect(HumanFeatures).toHaveBeenCalledTimes(1);
+      expect(human.age).toBeTruthy();
+      expect(human.eyeType).toBeTruthy();
+      expect(human.eyeColor).toBeTruthy();
+      expect(human.hairColor).toBeTruthy();
+      expect(human.height).toBeTruthy();
+      expect(human.distinguishingFeature).toBeTruthy();
+    });
   });
 });

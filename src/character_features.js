@@ -187,11 +187,9 @@ function calculateHeight(defaultHeight, dice) {
 class HumanFeatures {
   constructor() {
     this.age = addDiceResults(3) + 15;
-    this.eyeType = eyeType[Math.floor(Math.random() * eyeType.length)];
-    this.eyeColor =
-      eyeColor.human[Math.floor(Math.random() * eyeColor.human.length)];
-    this.hairColor =
-      hairColor.human[Math.floor(Math.random() * hairColor.human.length)];
+    this.eyeType = eyeType[randomInt(0, eyeType.length - 1)];
+    this.eyeColor = eyeColor.human[randomInt(0, eyeColor.human.length - 1)];
+    this.hairColor = hairColor.human[randomInt(0, hairColor.human.length)];
     this.height = calculateHeight(147.32, 3);
     this.distinguishingFeature = randomDistinguishingFeature();
   }
@@ -200,11 +198,9 @@ class HumanFeatures {
 class StormcastFeatures {
   constructor() {
     this.age = 'Unknowable';
-    this.eyeType = eyeType[Math.floor(Math.random() * eyeType.length)];
-    this.eyeColor =
-      eyeColor.human[Math.floor(Math.random() * eyeColor.human.length)];
-    this.hairColor =
-      hairColor.human[Math.floor(Math.random() * hairColor.human.length)];
+    this.eyeType = eyeType[randomInt(0, eyeType.length - 1)];
+    this.eyeColor = eyeColor.human[randomInt(0, eyeColor.human.length - 1)];
+    this.hairColor = hairColor.human[randomInt(0, hairColor.human.length - 1)];
     this.height = calculateHeight(203.2, 3);
     this.distinguishingFeature = randomDistinguishingFeature();
   }
@@ -213,11 +209,9 @@ class StormcastFeatures {
 class AelfFeatures {
   constructor() {
     this.age = addDiceResults(6) * 5;
-    this.eyeType = eyeType[Math.floor(Math.random() * eyeType.length)];
-    this.eyeColor =
-      eyeColor.aelf[Math.floor(Math.random() * eyeColor.aelf.length)];
-    this.hairColor =
-      hairColor.aelf[Math.floor(Math.random() * hairColor.aelf.length)];
+    this.eyeType = eyeType[randomInt(0, eyeType.length - 1)];
+    this.eyeColor = eyeColor.aelf[randomInt(0, eyeColor.aelf.length - 1)];
+    this.hairColor = hairColor.aelf[randomInt(0, hairColor.aelf.length - 1)];
     this.height = calculateHeight(177.8, 2);
     this.distinguishingFeature = randomDistinguishingFeature();
   }
@@ -226,28 +220,26 @@ class AelfFeatures {
 class DuardinFeatures {
   constructor() {
     this.age = addDiceResults(4) * 5;
-    this.eyeType = eyeType[Math.floor(Math.random() * eyeType.length)];
-    this.eyeColor =
-      eyeColor.duardin[Math.floor(Math.random() * eyeColor.duardin.length)];
+    this.eyeType = eyeType[randomInt(0, eyeType.length - 1)];
+    this.eyeColor = eyeColor.duardin[randomInt(0, eyeColor.duardin.length - 1)];
     this.hairColor =
-      hairColor.duardin[Math.floor(Math.random() * hairColor.duardin.length)];
+      hairColor.duardin[randomInt(0, hairColor.duardin.length - 1)];
     this.height = calculateHeight(124.46, 2);
     this.distinguishingFeature = randomDistinguishingFeature();
   }
 }
 
 class SylvanethFeatures {
-  constructor() {
+  constructor({ isKurnoth = false }) {
     this.age = addDiceResults(1) * addDiceResults(1) * addDiceResults(1);
-    this.eyeType = eyeType[Math.floor(Math.random() * eyeType.length)];
+    this.eyeType = eyeType[randomInt(0, eyeType.length - 1)];
     this.eyeColor =
-      eyeColor.sylvaneth[Math.floor(Math.random() * eyeColor.sylvaneth.length)];
+      eyeColor.sylvaneth[randomInt(0, eyeColor.sylvaneth.length - 1)];
     this.hairColor =
-      hairColor.sylvaneth[
-        Math.floor(Math.random() * hairColor.sylvaneth.length)
-      ];
-    this.height = calculateHeight(162.56, 2);
-    this.heightKurnoth = `${d6() + d6() + 3}'${d6()}"`;
+      hairColor.sylvaneth[randomInt(0, hairColor.sylvaneth.length - 1)];
+    this.height = isKurnoth
+      ? `${d6() + d6() + 3}'${d6()}"`
+      : calculateHeight(162.56, 2);
     this.distinguishingFeature = randomDistinguishingFeature();
   }
 }
