@@ -244,10 +244,19 @@ class SylvanethFeatures {
   }
 }
 
+const commands = {
+  '#human': () => new HumanFeatures(),
+  '#aelf': () => new AelfFeatures(),
+  '#duardin': () => new DuardinFeatures(),
+  '#sylvaneth': () => new SylvanethFeatures({ isKurnoth: false }),
+  '#sylvaneth-kurnoth': () => new SylvanethFeatures({ isKurnoth: true }),
+};
+
 module.exports = {
   HumanFeatures,
   StormcastFeatures,
   AelfFeatures,
   DuardinFeatures,
   SylvanethFeatures,
+  commands,
 };

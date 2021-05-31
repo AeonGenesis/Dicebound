@@ -11,6 +11,7 @@ const {
   AelfFeatures,
   DuardinFeatures,
   SylvanethFeatures,
+  commands,
 } = require('./src/character_features');
 
 client.once('ready', () => {
@@ -33,18 +34,11 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  const commands = {
-    '#human': HumanFeatures,
-    '#aelf': AelfFeatures,
-    '#duardin': DuardinFeatures,
-    '#sylvaneth': SylvanethFeatures,
-  };
-
-  const Character = commands[message.content];
-  if (!Character) {
+  const characterCreator = commands[message.content];
+  if (!characterCreator) {
     return;
   }
-  const character = new Character();
+  const character = characterCreator();
 
   message.reply(
     `\`\`\`Age: ${character.age}\nEye Type: ${character.eyeType}\nEye Color: ${character.eyeColor}\nHeight: ${character.height}\n${character.distinguishingFeature}\`\`\``,
