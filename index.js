@@ -3,14 +3,9 @@ const client = new Discord.Client();
 
 require('dotenv').config();
 
+const { d6 } = require('./src/dice');
 const { roller } = require('./src/roller');
-const {
-  HumanFeatures,
-  StormcastFeatures,
-  AelfFeatures,
-  DuardinFeatures,
-  SylvanethFeatures,
-} = require('./src/character_features');
+const { commands } = require('./src/character_features');
 
 client.once('ready', () => {
   console.log('Ready!');
@@ -32,57 +27,36 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  if (message.content === '#human') {
-    const human = new HumanFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${human.age}\nEye Type: ${human.eyeType}\nEye Color: ${human.eyeColor}\nHeight: ${human.height}\n${human.distinguishingFeature}\`\`\``,
-    );
+  const characterCreator = commands[message.content];
+  if (!characterCreator) {
+    return;
   }
+  const character = characterCreator();
+
+  message.reply(
+    `\`\`\`
+Age: ${character.age}\nEye Type: ${character.eyeType}\nEye Color: ${character.eyeColor}\nHeight: ${character.height}\n${character.distinguishingFeature}\`\`\``,
+  );
 });
 
 client.on('message', message => {
-  if (message.content === '#stormcast') {
-    const stormcast = new StormcastFeatures();
-    message.channel.send(
-      `\`\`\`Age: Unknowable\nEye Type: ${stormcast.eyeType}\nEye Color: ${stormcast.eyeColor}\nHeight: ${stormcast.height}\n${stormcast.distinguishingFeature}\`\`\``,
-    );
+  const match = message.content.match(/#d6 (\d+)/);
+  if (!match) {
+    return;
   }
-});
 
-client.on('message', message => {
-  if (message.content === '#aelf') {
-    const aelf = new AelfFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${aelf.age}\nEye Type: ${aelf.eyeType}\nEye Color: ${aelf.eyeColor}\nHeight: ${aelf.height}\n${aelf.distinguishingFeature}\`\`\``,
-    );
-  }
-});
+  let [, dice] = match;
+  dice = parseInt(dice, 10);
 
-client.on('message', message => {
-  if (message.content === '#duardin') {
-    const duardin = new DuardinFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${duardin.age}\nEye Type: ${duardin.eyeType}\nEye Color: ${duardin.eyeColor}\nHeight: ${duardin.height}\n${duardin.distinguishingFeature}\`\`\``,
-    );
-  }
-});
+  const d6 = roller(dice);
+  const d6Values = d6.rolls.map(dice => dice.value);
+  const d6ValuesAdded = d6Values.reduce(
+    (currentValue, nextValue) => currentValue + nextValue,
+  );
 
-client.on('message', message => {
-  if (message.content === '#sylvaneth-kurnoth') {
-    const kurnoth = new SylvanethFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${kurnoth.age}\nEye Type: ${kurnoth.eyeType}\nEye Color: ${kurnoth.eyeColor}\nHeight: ${kurnoth.heightKurnoth}\n${kurnoth.distinguishingFeature}\`\`\``,
-    );
-  }
-});
-
-client.on('message', message => {
-  if (message.content === '#sylvaneth') {
-    const sylvaneth = new SylvanethFeatures();
-    message.channel.send(
-      `\`\`\`Age: ${sylvaneth.age}\nEye Type: ${sylvaneth.eyeType}\nEye Color: ${sylvaneth.eyeColor}\nHeight: ${sylvaneth.height}\n${sylvaneth.distinguishingFeature}\`\`\``,
-    );
-  }
+  message.reply(`\`\`\`md
+# D6 Roll
+[${d6Values}]: Result: ${d6ValuesAdded}\`\`\``);
 });
 
 client.on('message', message => {
@@ -91,7 +65,7 @@ client.on('message', message => {
     return;
   }
 
-  let [_, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
+  let [, dice, targetNumber, neededSuccesses, hasFocus, focus] = match;
   dice = parseInt(dice, 10);
   targetNumber = parseInt(targetNumber, 10);
   neededSuccesses = parseInt(neededSuccesses, 10);
@@ -116,7 +90,7 @@ client.on('message', message => {
     .map(usedFocus => usedFocus.focused)
     .reduce((a, b) => a + b);
 
-  message.channel.send(
+  message.reply(
     `\`\`\`md
 # ${successResult}
 [${rollsOutput}]: Successes: ${roll.totalSuccesses} | Focus Used: ${focusUsed}
