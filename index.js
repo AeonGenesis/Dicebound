@@ -5,14 +5,7 @@ require('dotenv').config();
 
 const { d6 } = require('./src/dice');
 const { roller } = require('./src/roller');
-const {
-  HumanFeatures,
-  StormcastFeatures,
-  AelfFeatures,
-  DuardinFeatures,
-  SylvanethFeatures,
-  commands,
-} = require('./src/character_features');
+const { commands } = require('./src/character_features');
 
 client.once('ready', () => {
   console.log('Ready!');
@@ -41,8 +34,29 @@ client.on('message', message => {
   const character = characterCreator();
 
   message.reply(
-    `\`\`\`Age: ${character.age}\nEye Type: ${character.eyeType}\nEye Color: ${character.eyeColor}\nHeight: ${character.height}\n${character.distinguishingFeature}\`\`\``,
+    `\`\`\`
+Age: ${character.age}\nEye Type: ${character.eyeType}\nEye Color: ${character.eyeColor}\nHeight: ${character.height}\n${character.distinguishingFeature}\`\`\``,
   );
+});
+
+client.on('message', message => {
+  const match = message.content.match(/#d6 (\d+)/);
+  if (!match) {
+    return;
+  }
+
+  let [, dice] = match;
+  dice = parseInt(dice, 10);
+
+  const d6 = roller(dice);
+  const d6Values = d6.rolls.map(dice => dice.value);
+  const d6ValuesAdded = d6Values.reduce(
+    (currentValue, nextValue) => currentValue + nextValue,
+  );
+
+  message.reply(`\`\`\`md
+# D6 Roll
+[${d6Values}]: Result: ${d6ValuesAdded}\`\`\``);
 });
 
 client.on('message', message => {
