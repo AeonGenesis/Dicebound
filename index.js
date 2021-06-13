@@ -21,7 +21,7 @@ client.on('ready', () => {
 client.on('message', message => {
   if (message.content === '#help') {
     message.channel.send(
-      '**Age of Sigmar: Soulbound Discord Dicebot**\n**Roll syntax** (focus is optional)\n\n__Soulbound__\n```#roll [dice] [difficulty]:[complexity] f[focus]```\n__D6 Roll__\n```#roll [dice]```\n__Random Race Characteristics Generation__\n```#[name of race]\n\n==Commands==\n#human\n#aelf\n#duardin\n#sylvaneth\n#sylvaneth-kurnoth```\n',
+      '**Age of Sigmar: Soulbound Discord Dicebot**\n**Roll syntax** (focus is optional)\n\n__Soulbound__\n```#roll [dice] [difficulty]:[complexity] f[focus]```\n__D6 Roll__\n```#d6 [dice]```\n__Random Race Characteristics Generation__\n```#[name of race]\n\n==Commands==\n#human\n#aelf\n#duardin\n#sylvaneth\n#sylvaneth-kurnoth```\n',
     );
   }
 });
